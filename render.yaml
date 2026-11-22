@@ -1,0 +1,29 @@
+# One-click deploy blueprint for Render (render.com). Needs this project in a GitHub repository.
+# The disk keeps the database between restarts and needs a paid plan (starter).
+services:
+  - type: web
+    name: ahs-sources
+    runtime: docker
+    plan: starter
+    healthCheckPath: /login
+    disk:
+      name: ahs-data
+      mountPath: /data
+      sizeGB: 1
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: COOKIE_SECURE
+        value: "1"
+      - key: TIMEZONE
+        value: Asia/Riyadh
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        value: "587"
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASSWORD
+        sync: false
+      - key: MAIL_FROM
+        sync: false
